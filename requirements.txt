@@ -3,6 +3,9 @@ pandas
 numpy
 matplotlib
 scikit-learn
-
+jupyterlab
+ipykernel
+catboost
+xgboost
 -e .
-# -e . is used to install the package in editable mode
+# # -e . is used to install the package in editable mode
