@@ -26,4 +26,8 @@ def predict():
         predict_pipeline = PredictPipeline()
         results = predict_pipeline.predict(pred_df)
         return render_template('home.html', results=results[0])
+    
+@application.route('/health')
+def health():
+    return {"status": "healthy"}, 200
 
