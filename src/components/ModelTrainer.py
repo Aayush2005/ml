@@ -19,7 +19,7 @@ import warnings
 from src.exception import CustomException
 from src.logger import logging
 from src.utils import save_object,evaluate_models
-warnings.filterwarnings("ignore")
+# warnings.filterwarnings("ignore")
 import os
 import sys
 from dataclasses import dataclass
@@ -59,8 +59,60 @@ class ModelTrainer:
                 'CatBoostRegressor': CatBoostRegressor(verbose=0),
                 'XGBRegressor': XGBRegressor(eval_metric='rmse')
             }
+
+            ##Hyperparameter tuning
+            # Define the parameter grid for RandomizedSearchCV
+
+            params = {
+                'KNeighborsRegressor': {
+                    'n_neighbors': [3, 5, 7, 9]
+                },
+                'DecisionTreeRegressor': {
+                    'criterion': ['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
+                    'max_depth': [None, 10, 20, 30]
+                },
+                'RandomForestRegressor': {
+                    'n_estimators': [10, 50, 100],
+                    'max_features': ['auto', 'sqrt'],
+                    'max_depth': [None, 10, 20, 30]
+                },
+                'AdaBoostRegressor': {
+                    'n_estimators': [50, 100, 200],
+                    'learning_rate': [0.01, 0.1, 1.0]
+                },
+                'GradientBoostingRegressor': {
+                    'n_estimators': [100, 200],
+                    'learning_rate': [0.01, 0.1, 0.2],
+                    'max_depth': [3, 5, 7]
+                },
+                'SVR': {
+                    'kernel': ['linear', 'poly', 'rbf', 'sigmoid'],
+                    'C': [0.1, 1, 10]
+                },
+                'LinearRegression': {
+                    'fit_intercept': [True, False]
+                },
+                'Ridge': {
+                    'alpha': [0.1, 1.0, 10.0],
+                    'solver': ['auto', 'svd', 'cholesky', 'lsqr', 'sag', 'saga']
+                },
+                'Lasso': {
+                    'alpha': [0.1, 1.0, 10.0],
+                    'selection': ['cyclic', 'random']
+                },
+                'CatBoostRegressor': {
+                    'iterations': [100, 200],
+                    'depth': [4, 6, 8],
+                    'learning_rate': [0.01, 0.1, 0.2]
+                },
+                'XGBRegressor': {
+                    'n_estimators': [100, 200],
+                    'learning_rate': [0.01, 0.1, 0.2],
+                    'max_depth': [3, 5, 7]
+                }
+            }
             
-            model_report:dict = evaluate_models(X_train, y_train, X_test, y_test, models)
+            model_report:dict = evaluate_models(X_train, y_train, X_test, y_test, models,params)
 
             logging.info("Model evaluation completed.")
 
