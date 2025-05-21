@@ -7,5 +7,6 @@ jupyterlab
 ipykernel
 catboost
 xgboost
+dill
 -e .
 # # -e . is used to install the package in editable mode
