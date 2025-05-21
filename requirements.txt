@@ -9,5 +9,6 @@ catboost
 xgboost
 dill
 flask
+gunicorn
 -e .
 # # -e . is used to install the package in editable mode
