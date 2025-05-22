@@ -10,5 +10,5 @@ xgboost
 dill
 flask
 gunicorn
--e .
+# -e .
 # # -e . is used to install the package in editable mode
